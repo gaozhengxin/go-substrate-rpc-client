@@ -231,9 +231,9 @@ type EventRecords struct {
 	Multisig_MultisigExecuted  []EventMultisigExecuted    `test-gen-blockchain:"altair"`
 	Multisig_NewMultisig       []EventMultisigNewMultisig `test-gen-blockchain:"altair"`
 
-	NftSales_ForSale []EventNftSalesForSale `test-gen-blockchain:"altair"`
-	NftSales_Removed []EventNftSalesRemoved `test-gen-blockchain:"altair"`
-	NftSales_Sold    []EventNftSalesSold    `test-gen-blockchain:"altair"`
+	//NftSales_ForSale []EventNftSalesForSale `test-gen-blockchain:"altair"`
+	//NftSales_Removed []EventNftSalesRemoved `test-gen-blockchain:"altair"`
+	//NftSales_Sold []EventNftSalesSold `test-gen-blockchain:"altair"`
 
 	Offences_Offence []EventOffencesOffence `test-gen-blockchain:"polkadot"`
 

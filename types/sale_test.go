@@ -16,6 +16,7 @@
 
 package types_test
 
+/*
 import (
 	"math/big"
 	"testing"
@@ -173,3 +174,4 @@ func TestSale_Decode(t *testing.T) {
 		{MustHexDecodeString("0x6163635f69640000000000000000000000000000000000000000000000000000037b000000000000000000000000000000"), testSale},
 	})
 }
+*/

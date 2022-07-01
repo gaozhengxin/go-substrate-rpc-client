@@ -3044,13 +3044,13 @@ type EventMultisigNewMultisig struct {
 }
 
 // EventNftSalesForSale is emitted when an NFT is out for sale.
-type EventNftSalesForSale struct {
+/*type EventNftSalesForSale struct {
 	Phase      Phase
 	ClassID    U64
 	InstanceID U128
 	Sale       Sale
 	Topics     []Hash
-}
+}*/
 
 // EventNftSalesRemoved is emitted when an NFT is removed.
 type EventNftSalesRemoved struct {
@@ -3061,14 +3061,14 @@ type EventNftSalesRemoved struct {
 }
 
 // EventNftSalesSold is emitted when an NFT is sold.
-type EventNftSalesSold struct {
+/*type EventNftSalesSold struct {
 	Phase      Phase
 	ClassID    U64
 	InstanceID U128
 	Sale       Sale
 	Buyer      AccountID
 	Topics     []Hash
-}
+}*/
 
 // TimePoint is a global extrinsic index, formed as the extrinsic index within a block,
 // together with that block's height.

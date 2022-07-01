@@ -16,6 +16,7 @@
 
 package types
 
+/*
 import "github.com/centrifuge/go-substrate-rpc-client/v4/scale"
 
 type Tranche struct {
@@ -163,3 +164,4 @@ func (s Sale) Encode(encoder scale.Encoder) error {
 
 	return encoder.Encode(s.Price)
 }
+*/
