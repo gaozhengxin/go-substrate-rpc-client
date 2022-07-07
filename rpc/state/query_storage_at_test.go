@@ -14,26 +14,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:generate mockery --name Offchain --filename offchain.go
-
-package offchain
+package state
 
 import (
-	"github.com/centrifuge/go-substrate-rpc-client/v4/client"
+	"testing"
+
 	"github.com/centrifuge/go-substrate-rpc-client/v4/types"
+	"github.com/stretchr/testify/assert"
 )
 
-type Offchain interface {
-	LocalStorageGet(kind StorageKind, key []byte) (*types.StorageDataRaw, error)
-	LocalStorageSet(kind StorageKind, key []byte, value []byte) error
+func TestState_QueryStorageAtLatest(t *testing.T) {
+	key := types.NewStorageKey(types.MustHexDecodeString(mockSrv.storageKeyHex))
+	data, err := testState.QueryStorageAtLatest([]types.StorageKey{key})
+	assert.NoError(t, err)
+	assert.Equal(t, mockSrv.storageChangeSets, data)
 }
 
-// offchain exposes methods for retrieval of off-chain data
-type offchain struct {
-	client client.Client
-}
-
-// NewOffchain creates a new offchain struct
-func NewOffchain(c client.Client) Offchain {
-	return &offchain{client: c}
+func TestState_QueryStorageAt(t *testing.T) {
+	key := types.NewStorageKey(types.MustHexDecodeString(mockSrv.storageKeyHex))
+	hash := types.NewHash(types.MustHexDecodeString("0xdd1816b6f6889f46e23b0d6750bc441af9dad0fda8bae90677c1708d01035fbe"))
+	data, err := testState.QueryStorageAt([]types.StorageKey{key}, hash)
+	assert.NoError(t, err)
+	assert.Equal(t, mockSrv.storageChangeSets, data)
 }

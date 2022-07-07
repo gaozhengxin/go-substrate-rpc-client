@@ -14,26 +14,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:generate mockery --name Offchain --filename offchain.go
-
-package offchain
+package state
 
 import (
 	"github.com/centrifuge/go-substrate-rpc-client/v4/client"
 	"github.com/centrifuge/go-substrate-rpc-client/v4/types"
 )
 
-type Offchain interface {
-	LocalStorageGet(kind StorageKind, key []byte) (*types.StorageDataRaw, error)
-	LocalStorageSet(kind StorageKind, key []byte, value []byte) error
+// QueryStorageAt performs a low-level storage query
+func (s *state) QueryStorageAt(keys []types.StorageKey, block types.Hash) ([]types.StorageChangeSet, error) {
+	return s.queryStorageAt(keys, &block)
 }
 
-// offchain exposes methods for retrieval of off-chain data
-type offchain struct {
-	client client.Client
+// QueryStorageAtLatest performs a low-level storage query
+func (s *state) QueryStorageAtLatest(keys []types.StorageKey) ([]types.StorageChangeSet, error) {
+	return s.queryStorageAt(keys, nil)
 }
 
-// NewOffchain creates a new offchain struct
-func NewOffchain(c client.Client) Offchain {
-	return &offchain{client: c}
+func (s *state) queryStorageAt(keys []types.StorageKey, block *types.Hash) ([]types.StorageChangeSet, error) {
+	hexKeys := make([]string, len(keys))
+	for i, key := range keys {
+		hexKeys[i] = key.Hex()
+	}
+
+	var res []types.StorageChangeSet
+	err := client.CallWithBlockHash(s.client, &res, "state_queryStorageAt", block, hexKeys)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
